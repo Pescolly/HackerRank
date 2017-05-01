@@ -1,67 +1,63 @@
-#include <map>
-#include <set>
-#include <list>
 #include <cmath>
-#include <ctime>
-#include <deque>
-#include <queue>
-#include <stack>
-#include <string>
-#include <bitset>
 #include <cstdio>
-#include <limits>
 #include <vector>
-#include <climits>
-#include <cstring>
-#include <cstdlib>
-#include <fstream>
-#include <numeric>
-#include <sstream>
 #include <iostream>
 #include <algorithm>
-#include <unordered_map>
+#include <sstream>
+#include <cstdlib>
 
 using namespace std;
 
 
 int main()
 {
-	vector< vector<int> > arr  {{1, 1, 1, 0, 0, 0},
-								{0, 1, 0, 0, 0, 0},
-								{1, 1, 1, 0, 0, 0},
-								{0, 0, 2, 4, 4, 0},
-								{0, 0, 0, 2, 0, 0},
-								{0, 0, 1, 2, 4, 0}};
-							
 
-	
-	int high = INT_MIN;
-	for(int row = 0; row < 4; row++)
+//	Create a list, seqlist, of m empty sequences, where each sequence is indexed from 0 to n-1.
+// The elements within each of the  sequences also use -indexing.
+//			Create an integer, lastAns, and initialize it to 0.
+//			The  types of queries that can be performed on your list of sequences (seqList) are described below:
+//	Query: 1 x y
+//	Find the sequence, seq, at index (x ^ lastAns) % N in seqList.
+//			Append integer y to sequence seq.
+//			Query: 2 x y
+//	Find the sequence, seq, at index  in .
+//			Find the value of element  in  (where  is the size of ) and assign it to .
+//			Print the new value of  on a new line
+
+//	2 5
+//	1 0 5
+//	1 1 7
+//	1 0 3
+//	2 1 0
+//	2 1 1
+
+	int N, Q, x, y, queryType;
+	u_long lastAns = 0;
+
+	cin >> N;
+	cin >> Q;
+
+	vector<vector<int>> seqList(N, vector<int>());
+
+	for (int i = 0; i < Q; i++)
 	{
-		for(int col = 0; col < 4; col++)
+		cin >> queryType;
+		cin >> x;
+		cin >> y;
+
+		int seq = (x ^ lastAns) % N;	//get the sequence number
+
+		if (queryType == 1)		//append integer y to seq
 		{
-			int s1 = arr[row][col];
-			int s2 = arr[row][col+1];
-			int s3 = arr[row][col+2];
-			int s4 = arr[row+1][col+1];
-			int s5 = arr[row+2][col];
-			int s6 = arr[row+2][col+1];
-			int s7 = arr[row+2][col+2];
-			cout << s1 << " " << s2 << " " << s3 << "\n";
-			cout << " " << s4 << "\n";
-			cout << s5 << " "  << s6 << " "  << s7 << "\n";
-			int total = s1 + s2 + s3 + s4 + s5 + s6 + s7;
-			if (total > high)
-			{
-				high = total;
-			}
+			seqList[seq].push_back(y);
+		}
+
+		if (queryType == 2)		//find the value of y%size in seq and assign to last ans. print las ans
+		{
+			int index =  y % seqList[seq].size();
+			lastAns = seqList[seq][index];
+			cout << lastAns << endl;
 		}
 	}
-	
-	cout << "High: ";
-	cout << high << "\n\n";
-
-	
-	
 	return 0;
 }
