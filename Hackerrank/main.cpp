@@ -9,24 +9,57 @@
 using namespace std;
 
 
-int main() //perform left rotation on array of len size;
+int main() //sparse array
 {
-	int size, rots;
+//	There are N strings. Each string's length is no more than 20 characters.
+// There are also Q queries. For each query, you are given a string, and you need to find out how many times this string occurred previously.
+//	The first line contains N, the number of strings.
+//	The next N lines each contain a string.
+//	The N + 2nd line contains Q, the number of queries.
+//	The following Q lines each contain a query string.
 
-	cin >> size;
-	cin >> rots;
+//	sample input
+//	4
+//	aba
+//	baba
+//	aba
+//	xzxb
+//	3
+//	aba
+//	xzxb
+//	ab
 
-	int arr[size];
-	int a2[size];
+//	Sample Output
+//	2
+//	1
+//	0
 
-	for (int i = 0; i < size; i++)
-	{ cin >> arr[i]; }
+	int N;
+	cin >> N;
 
-	memcpy(a2, &arr[rots], (sizeof(int) * (size-rots)));
-	memcpy(&a2[size-rots], arr, (sizeof(int) * rots));
+	string arr[N];
+	for (int i = 0; i < N; i++)
+	{
+		cin >> arr[i];
+	}
 
-	for (int i = 0; i < size; i++)
-	{ cout << a2[i] << " "; }
+	int Q;
+	cin >> Q;
+	string subString;
+	for (int i = 0; i < Q; i++)
+	{
+		cin >> subString;
+		int count = 0;
+		for (int j = 0; j < N; j++)
+		{
+			if (arr[j] == subString)
+			{
+				count++;
+			}
+		}
+		cout << count << endl;
+	}
+
 
 	return 0;
 }
